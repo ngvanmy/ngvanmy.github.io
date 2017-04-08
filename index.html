@@ -129,6 +129,7 @@
   <div id="od-breadcrumb"></div>
   <div id="od-content">
     <div id="od-items" class="od-pagecol"></div>
+    <div id="library" class="music-lib">
     <div id="od-json" class="od-pagecol"></div>
   </div>
   <script>
@@ -228,7 +229,20 @@
           appendTo("#od-breadcrumb");
       }
 
-      $("#od-breadcrumb").append("<button>Add to library</button>")
+      $("#od-breadcrumb").append("<button onclick='scanLibrary();'>Add to library</button>")
+    }
+
+    function scanLibrary(){
+       var path = "";
+          var beforePath = "";
+          var afterPath = "";
+          if (window.location.hash.length > 1) {
+            path = window.location.hash.substr(1);
+            beforePath =":";
+            afterPath = ":";
+          }
+
+          var odurl = msGraphApiRoot + "/drive/root" + beforePath + path + afterPath;
     }
 
     // odauth calls our onAuthenticated method to give us the user's auth token.
