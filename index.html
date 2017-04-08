@@ -291,7 +291,7 @@ function scanFolder(folderPath){
             accept: "application/json;odata.metadata=none",
             success: function(data) {
               var items=[];
-
+              $("#library").empty();
               $.each(data.children, function (indexInArray, valueOfElement) { 
                   var item ={
                     name:valueOfElement["name"],
@@ -300,6 +300,7 @@ function scanFolder(folderPath){
                   scanFolder(encodeURI(item.name)).then(function(result){
                     item.files = result;
                     items.push(item);
+                    $("#library").append(JSON.stringify(items));
                   })
                   // new Promise(function(resolve, reject) {
                   //  var it= scanFolder(encodeURI(item.name));
@@ -319,7 +320,7 @@ function scanFolder(folderPath){
               //     $("#library").html(JSON.stringify(items));
 
               // });
-$("#library").html(JSON.stringify(items));
+
             
             }
           });
