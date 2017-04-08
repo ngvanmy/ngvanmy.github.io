@@ -130,7 +130,7 @@
   <div id="od-breadcrumb"></div>
   <div id="od-content">
     <div id="od-items" class="od-pagecol"></div>
-    <div id="library" class="music-lib">
+    <div id="library" class="music-lib"></div>
     <div id="od-json" class="od-pagecol"></div>
   </div>
   <script>
@@ -253,7 +253,13 @@
             headers: { "Authorization": "Bearer " + token },
             accept: "application/json;odata.metadata=none",
             success: function(data) {
-              var d=data;
+              var items=[];
+
+              $.each(data.children, function (indexInArray, valueOfElement) { 
+                  var item ={url:valueOfElement["name"]};
+                  items.push(item);
+              });
+            $("#library").html(items);
             }
           });
     }

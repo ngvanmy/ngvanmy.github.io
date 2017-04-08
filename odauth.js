@@ -76,6 +76,7 @@ function getAuthInfoFromUrl() {
 }
 
 function getTokenFromCookie() {
+
   var cookies = document.cookie;
   var name = "odauth=";
   var start = cookies.indexOf(name);
