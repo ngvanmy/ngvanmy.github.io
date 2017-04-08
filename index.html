@@ -233,6 +233,40 @@
       $("#od-breadcrumb").append("<button onclick='scanLibrary();'>Add to library</button>")
     }
 
+function scanFolder(folderPath){
+      var path = "";
+          var beforePath = "";
+          var afterPath = "";
+          if (window.location.hash.length > 1) {
+            path = window.location.hash.substr(1) + "/" + folderPath;
+            beforePath =":";
+            afterPath = ":";
+          }
+
+          var odurl = msGraphApiRoot + "/drive/root" + beforePath + path + afterPath;
+          var thumbnailSize = "large"
+          var odquery = "?expand=thumbnails,children(expand=thumbnails(select=" + thumbnailSize + "))";
+          var token=getTokenFromCookie();
+            $.ajax({
+            url: odurl + odquery,
+            dataType: 'json',
+            headers: { "Authorization": "Bearer " + token },
+            accept: "application/json;odata.metadata=none",
+            success: function(data) {
+              var items=[];
+
+              $.each(data.children, function (indexInArray, valueOfElement) { 
+                  var item ={
+                    name:valueOfElement["name"],
+                    webUrl:valueOfElement["webUrl"]
+                };
+                  items.push(item);
+              });
+              return items;
+            }
+          });
+}
+
     function scanLibrary(){
        var path = "";
           var beforePath = "";
@@ -259,10 +293,13 @@
                   var item ={
                     name:valueOfElement["name"],
                     webUrl:valueOfElement["webUrl"]
-                };
+                  };
+                  var subItems = scanFolder(item.name);
+                  item.files = subItems;
                   items.push(item);
               });
-            $("#library").html(JSON.stringify(items));
+
+              $("#library").html(JSON.stringify(items));
             }
           });
     }
