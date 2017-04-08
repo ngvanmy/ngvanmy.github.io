@@ -300,17 +300,17 @@ function scanFolder(folderPath){
                   .then(function(result) {
                      item.files = result;
                       items.push(item);
-                  })
-                  ;
+                  });
                   // var subItems = scanFolder(encodeURI(item.name)).then(function(){
                   //      item.files = subItems;
                   //     items.push(item);
                   // });
                  
-              }).promise().done(function(){
-                  $("#library").html(JSON.stringify(items));
-
               });
+              // .promise().done(function(){
+              //     $("#library").html(JSON.stringify(items));
+
+              // });
 
             
             }
