@@ -295,7 +295,8 @@ function scanFolder(folderPath){
                     webUrl:valueOfElement["webUrl"]
                   };
                   new Promise(function(resolve, reject) {
-                    scanFolder(encodeURI(item.name));
+                   var item= scanFolder(encodeURI(item.name));
+                   items.push(item);
                   })
                   .then(function(result) {
                      item.files = result;
