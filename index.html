@@ -256,7 +256,10 @@
               var items=[];
 
               $.each(data.children, function (indexInArray, valueOfElement) { 
-                  var item ={url:valueOfElement["name"]};
+                  var item ={
+                    name:valueOfElement["name"],
+                    webUrl:valueOfElement["webUrl"]
+                };
                   items.push(item);
               });
             $("#library").html(JSON.stringify(items));
