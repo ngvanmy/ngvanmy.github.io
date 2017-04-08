@@ -234,7 +234,8 @@
     }
 
 function scanFolder(folderPath){
-      var path = "";
+   return new Promise(function(resolve, reject){
+       var path = "";
           var beforePath = "";
           var afterPath = "";
           if (window.location.hash.length > 1) {
@@ -262,9 +263,11 @@ function scanFolder(folderPath){
                 };
                   items.push(item);
               });
-              return items;
+              resolve(items);
             }
           });
+    });
+      
 }
 
     function scanLibrary(){
@@ -294,14 +297,17 @@ function scanFolder(folderPath){
                     name:valueOfElement["name"],
                     webUrl:valueOfElement["webUrl"]
                   };
-                  new Promise(function(resolve, reject) {
-                   var it= scanFolder(encodeURI(item.name));
-                   items.files=it;
+                  scanFolder(encodeURI(item.name)).then(function(result){
+                    item.files = result;
                   })
-                  .then(function(result) {
-                     item.files = result;
-                      items.push(item);
-                  });
+                  // new Promise(function(resolve, reject) {
+                  //  var it= scanFolder(encodeURI(item.name));
+                  //  items.files=it;
+                  // })
+                  // .then(function(result) {
+                  //    item.files = result;
+                  //     items.push(item);
+                  // });
                   // var subItems = scanFolder(encodeURI(item.name)).then(function(){
                   //      item.files = subItems;
                   //     items.push(item);
