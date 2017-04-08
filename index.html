@@ -246,7 +246,7 @@
           var odurl = msGraphApiRoot + "/drive/root" + beforePath + path + afterPath;
           var thumbnailSize = "large"
           var odquery = "?expand=thumbnails,children(expand=thumbnails(select=" + thumbnailSize + "))";
-          var token=loadFromCookie();
+          var token=getTokenFromCookie();
             $.ajax({
             url: odurl + odquery,
             dataType: 'json',
