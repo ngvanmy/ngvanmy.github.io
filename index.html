@@ -243,6 +243,17 @@
           }
 
           var odurl = msGraphApiRoot + "/drive/root" + beforePath + path + afterPath;
+          var thumbnailSize = "large"
+          var odquery = "?expand=thumbnails,children(expand=thumbnails(select=" + thumbnailSize + "))";
+
+            $.ajax({
+            url: odurl + odquery,
+            dataType: 'json',
+            headers: { "Authorization": "Bearer " + token },
+            accept: "application/json;odata.metadata=none",
+            success: function(data) {
+              var d=data;
+            });
     }
 
     // odauth calls our onAuthenticated method to give us the user's auth token.
