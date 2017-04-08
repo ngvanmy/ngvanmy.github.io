@@ -294,10 +294,17 @@ function scanFolder(folderPath){
                     name:valueOfElement["name"],
                     webUrl:valueOfElement["webUrl"]
                   };
-                  var subItems = scanFolder(encodeURI(item.name)).then(function(){
-                       item.files = subItems;
+                  new Promise(function(resolve, reject) {
+                    scanFolder(encodeURI(item.name));
+                  })
+                  .then(function(result) {
+                     item.files = subItems;
                       items.push(item);
                   });
+                  // var subItems = scanFolder(encodeURI(item.name)).then(function(){
+                  //      item.files = subItems;
+                  //     items.push(item);
+                  // });
                  
               });
 
