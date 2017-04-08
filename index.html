@@ -294,7 +294,7 @@ function scanFolder(folderPath){
                     name:valueOfElement["name"],
                     webUrl:valueOfElement["webUrl"]
                   };
-                  var subItems = scanFolder(encodeURI(item.name);
+                  var subItems = scanFolder(encodeURI(item.name));
                   item.files = subItems;
                   items.push(item);
               });
