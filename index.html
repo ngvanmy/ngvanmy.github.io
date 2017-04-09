@@ -352,7 +352,7 @@ function scanFolder(folderPath){
       db.changes().on('change', function() {
        $("#library").append(item.name);
       });
-      var remoteDb=new PouchDB('https://'+options.auth.username + ':' + options.auth.password
+      var remoteDb=new PouchDB('http://'+options.auth.username + ':' + options.auth.password
                     +'@nhacvang.cloudant.com/onedrive', {skipSetup: true});
       db.replicate.to(remoteDb,options);
     }
