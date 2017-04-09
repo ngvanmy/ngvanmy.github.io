@@ -352,9 +352,21 @@ function scanFolder(folderPath){
       db.changes().on('change', function() {
        $("#library").append(item.name);
       });
-      var remoteDb=new PouchDB('http://'+options.auth.username + ':' + options.auth.password
-                    +'@nhacvang.cloudant.com/onedrive', {skipSetup: true});
-   //    var remoteDb=new PouchDB('https://nhacvang.cloudant.com/onedrive',options);
+      // var remoteDb=new PouchDB('https://'+options.auth.username + ':' + options.auth.password
+      //               +'@nhacvang.cloudant.com/onedrive', {skipSetup: true});
+      var remoteDb=new PouchDB('https://nhacvang.cloudant.com/onedrive',{
+              ajax: {
+                cache: false,
+                timeout: 10000,
+                headers: {
+               //   'X-Some-Special-Header': 'foo'
+                },
+              },
+              auth: {
+                username: 'theirshornowingplanstran',
+                password: '2ea7fc07816bcac6e905d0be67197b597c0367ca'
+              }
+            });
       db.replicate.to(remoteDb,options);
     }
 
