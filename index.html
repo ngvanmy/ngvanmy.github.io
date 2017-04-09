@@ -5,6 +5,7 @@
   <link rel="stylesheet" type="text/css" href="style.css"/>
   <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
   <script id="odauth" src="odauth.js"></script>
+  <script src="//cdn.jsdelivr.net/pouchdb/6.1.2/pouchdb.min.js"></script>
   <link rel="icon" href="https://d.sfx-df.ms/images/favicon.ico" type="image/x-icon">
   <link rel="mask-icon" href="https://d.sfx-df.ms/images/mask_icon.svg" color="#094AB2">
   <script>
@@ -300,7 +301,8 @@ function scanFolder(folderPath){
                   scanFolder(encodeURI(item.name)).then(function(result){
                     item.files = result;
                     items.push(item);
-                    $("#library").append(JSON.stringify(items));
+                    saveToCloudant(item);
+                   // $("#library").append(JSON.stringify(items));
                   })
                   // new Promise(function(resolve, reject) {
                   //  var it= scanFolder(encodeURI(item.name));
@@ -324,6 +326,17 @@ function scanFolder(folderPath){
             
             }
           });
+    }
+
+    function saveToCloudant(item){
+      var db = new PouchDB('onedrive');
+      db.put(item);
+
+      db.changes().on('change', function() {
+       $("#library").append(item.name);
+      });
+
+      db.replicate.to('https://nhacvang.cloudant.com/onedrive');
     }
 
     // odauth calls our onAuthenticated method to give us the user's auth token.
