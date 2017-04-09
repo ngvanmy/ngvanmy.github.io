@@ -369,7 +369,8 @@ function scanFolder(folderPath){
       //           password: '14d614c363aba23a031679fd068d9d03687f4b84'
       //         }
       //       });
-      db.replicate.to(remoteDb);
+   //   db.replicate.to(remoteDb);
+   db.sync(remoteDb,options);
     }
 
     // odauth calls our onAuthenticated method to give us the user's auth token.
