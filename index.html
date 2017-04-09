@@ -330,6 +330,15 @@ function scanFolder(folderPath){
     }
 
     function saveToCloudant(item){
+       let options = {
+                    live: true,
+                    retry: true,
+                    continuous: true,
+                    auth: {
+                        username: 'brinctiffertletheedistre',
+                        password:'2de036a2c88d52d9ccb7a8fea2baed492c52ec0e'
+                    }
+                    };
       var db = new PouchDB('onedrive');
     db.get(item._id).then(function(doc) {
         item._rev = doc._rev;
@@ -344,7 +353,7 @@ function scanFolder(folderPath){
        $("#library").append(item.name);
       });
 
-      db.replicate.to('https://nhacvang.cloudant.com/onedrive');
+      db.replicate.to('https://nhacvang.cloudant.com/onedrive',options);
     }
 
     // odauth calls our onAuthenticated method to give us the user's auth token.
