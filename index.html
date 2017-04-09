@@ -331,7 +331,14 @@ function scanFolder(folderPath){
 
     function saveToCloudant(item){
       var db = new PouchDB('onedrive');
-      db.put(item);
+    db.get(item._id).then(function(doc) {
+        item._rev = doc._rev;
+          return db.put(item);
+        }).then(function(response) {
+         console.log(response);
+        }).catch(function (err) {
+          console.log(err);
+        });
 
       db.changes().on('change', function() {
        $("#library").append(item.name);
