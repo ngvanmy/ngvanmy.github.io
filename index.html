@@ -353,7 +353,18 @@ function scanFolder(folderPath){
        $("#library").append(item.name);
       });
       var remoteDb=new PouchDB('https://'+options.auth.username + ':' + options.auth.password
-                    +'@nhacvang.cloudant.com/onedrive', {skipSetup: true});
+                    +'@nhacvang.cloudant.com/onedrive',
+                     {
+                       ajax: {
+                            cache: false,
+                            timeout: 10000,
+                            headers: {
+                          //   'X-Some-Special-Header': 'foo'
+                          'Access-Control-Allow-Origin':'*',
+                        
+                            }
+                            }
+                      });
       // var remoteDb=new PouchDB('https://nhacvang.cloudant.com/onedrive',{
       //         ajax: {
       //           cache: false,
