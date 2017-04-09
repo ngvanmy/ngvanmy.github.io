@@ -352,8 +352,9 @@ function scanFolder(folderPath){
       db.changes().on('change', function() {
        $("#library").append(item.name);
       });
-
-      db.replicate.to('https://nhacvang.cloudant.com/onedrive',options);
+      var remoteDb=new PouchDB('https://'+options.auth.username + ':' + options.auth.password
+                    +'@nhacvang.cloudant.com/onedrive', {skipSetup: true});
+      db.replicate.to(remoteDb,options);
     }
 
     // odauth calls our onAuthenticated method to give us the user's auth token.
