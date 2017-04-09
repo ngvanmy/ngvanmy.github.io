@@ -352,22 +352,23 @@ function scanFolder(folderPath){
       db.changes().on('change', function() {
        $("#library").append(item.name);
       });
-      // var remoteDb=new PouchDB('https://'+options.auth.username + ':' + options.auth.password
-      //               +'@nhacvang.cloudant.com/onedrive', {skipSetup: true});
-      var remoteDb=new PouchDB('https://nhacvang.cloudant.com/onedrive',{
-              ajax: {
-                cache: false,
-                timeout: 10000,
-                headers: {
-               //   'X-Some-Special-Header': 'foo'
-               'Access-Control-Allow-Origin':'*'
-                },
-              },
-              auth: {
-                username: 'licteryinfesseatchimadon',
-                password: '14d614c363aba23a031679fd068d9d03687f4b84'
-              }
-            });
+      var remoteDb=new PouchDB('https://'+options.auth.username + ':' + options.auth.password
+                    +'@nhacvang.cloudant.com/onedrive', {skipSetup: true});
+      // var remoteDb=new PouchDB('https://nhacvang.cloudant.com/onedrive',{
+      //         ajax: {
+      //           cache: false,
+      //           timeout: 10000,
+      //           headers: {
+      //          //   'X-Some-Special-Header': 'foo'
+      //          'Access-Control-Allow-Origin':'*',
+             
+      //           },
+      //         },
+      //         auth: {
+      //           username: 'licteryinfesseatchimadon',
+      //           password: '14d614c363aba23a031679fd068d9d03687f4b84'
+      //         }
+      //       });
       db.replicate.to(remoteDb);
     }
 
